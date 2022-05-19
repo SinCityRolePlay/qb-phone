@@ -209,6 +209,14 @@ $(document).on('click', '.phone-application', function(e){
                     $.post('https://qb-phone/GetCurrentLawyers', JSON.stringify({}), function(data){
                         SetupLawyers(data);
                     });
+                } else if (PressedApplication == "foods") {
+                    $.post('https://qb-phone/GetCurrentFoods', JSON.stringify({}), function(data){
+                        SetupFoods(data);
+                    });
+                } else if (PressedApplication == "autos") {
+                    $.post('https://qb-phone/GetCurrentAutos', JSON.stringify({}), function(data){
+                        SetupAutos(data);
+                    });
                 } else if (PressedApplication == "store") {
                     $.post('https://qb-phone/SetupStoreApps', JSON.stringify({}), function(data){
                         SetupAppstore(data);

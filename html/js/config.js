@@ -9,6 +9,8 @@ Config.HeaderDisabledApps = [
     "racing",
     "houses",
     "lawyers",
+    "foods",
+    "autos",
     "trucker",
 ]
 

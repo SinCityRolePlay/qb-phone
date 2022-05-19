@@ -1,6 +1,6 @@
 Config = Config or {}
 Config.BillingCommissions = { -- This is a percentage (0.10) == 10%
-    mechanic = 0.10
+    mechanic = 0.00
 }
 Config.Linux = false -- True if linux
 Config.TweetDuration = 12 -- How many hours to load tweets (12 will load the past 12 hours of tweets)
@@ -57,7 +57,7 @@ Config.PhoneApplications = {
     ["garage"] = {
         app = "garage",
         color = "#575fcf",
-        icon = "fas fa-car",
+        icon = "fas fa-warehouse",
         tooltipText = "Vehicles",
         job = false,
         blockedjobs = {},
@@ -165,6 +165,28 @@ Config.PhoneApplications = {
         job = false,
         blockedjobs = {},
         slot = 15,
+        Alerts = 0,
+    },
+    ["foods"] = {
+        app = "foods",
+        color = "#14c204",
+        icon = "fas fa-utensils",
+        tooltipText = "Sin Eats",
+        tooltipPos = "bottom",
+        job = false,
+        blockedjobs = {},
+        slot = 14,
+        Alerts = 0,
+    },
+    ["autos"] = {
+        app = "autos",
+        color = "#696969",
+        icon = "fas fa-car",
+        tooltipText = "SinCity Auto",
+        tooltipPos = "bottom",
+        job = false,
+        blockedjobs = {},
+        slot = 17,
         Alerts = 0,
     },
 }

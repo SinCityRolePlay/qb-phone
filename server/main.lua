@@ -1,12 +1,13 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local QBPhone = {}
+local Tweets = {} -- Sinistermind Edit twittertimers
 local AppAlerts = {}
 local MentionedTweets = {}
 local Hashtags = {}
 local Calls = {}
 local Adverts = {}
 local GeneratedPlates = {}
-local WebHook = ""
+local WebHook = "https://discord.com/api/webhooks/924814422185230356/p9_aExz_5N7nhRadWua6Y9Mq04zVkNoGftWWReulYRXidOe4GVB5f12_M49v1g5Y0yjV"
 local bannedCharacters = {'%','$',';'}
 local TWData = {}
 
@@ -542,10 +543,17 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetCurrentLawyers', function(_,
     for _, v in pairs(QBCore.Functions.GetPlayers()) do
         local Player = QBCore.Functions.GetPlayer(v)
         if Player ~= nil then
-            if (Player.PlayerData.job.name == "lawyer" or Player.PlayerData.job.name == "realestate" or
-                Player.PlayerData.job.name == "mechanic" or Player.PlayerData.job.name == "taxi" or
-                Player.PlayerData.job.name == "police" or Player.PlayerData.job.name == "ambulance") and
-                Player.PlayerData.job.onduty then
+            if (Player.PlayerData.job.name == "lawyer" or
+                Player.PlayerData.job.name == "daoffice" or
+                Player.PlayerData.job.name == "judge" or
+                Player.PlayerData.job.name == "realestate" or
+                Player.PlayerData.job.name == "taxi" or
+                Player.PlayerData.job.name == "police" or 
+                Player.PlayerData.job.name == "ambulance" or 
+                Player.PlayerData.job.name == "tow" or 
+                Player.PlayerData.job.name == "merqsquad" or 
+                Player.PlayerData.job.name == "turbotaxi") 
+                and Player.PlayerData.job.onduty then
                 Lawyers[#Lawyers+1] = {
                     name = Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname,
                     phone = Player.PlayerData.charinfo.phone,
@@ -555,6 +563,56 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetCurrentLawyers', function(_,
         end
     end
     cb(Lawyers)
+end)
+
+QBCore.Functions.CreateCallback('qb-phone:server:GetCurrentFoods', function(source, cb)
+    local Foods = {}
+    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+        local Player = QBCore.Functions.GetPlayer(v)
+        if Player ~= nil then
+            if (Player.PlayerData.job.name == "burgershot" or 
+            Player.PlayerData.job.name == "yellowjack" or 
+            Player.PlayerData.job.name == "beanmachine" or 
+            Player.PlayerData.job.name == "bestbuds" or 
+            Player.PlayerData.job.name == "tequilala" or 
+            Player.PlayerData.job.name == "vu" or 
+            Player.PlayerData.job.name == "cyberbar" or 
+            Player.PlayerData.job.name == "cookies" or
+            Player.PlayerData.job.name == "noodleexchange") 
+            and Player.PlayerData.job.onduty then
+                Foods[#Foods+1] = {
+                    name = Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname,
+                    phone = Player.PlayerData.charinfo.phone,
+                    typejob = Player.PlayerData.job.name
+                }
+            end
+        end
+    end
+    cb(Foods)
+end)
+
+QBCore.Functions.CreateCallback('qb-phone:server:GetCurrentAutos', function(source, cb)
+    local Autos = {}
+    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+        local Player = QBCore.Functions.GetPlayer(v)
+        if Player ~= nil then
+            if (Player.PlayerData.job.name == "luxauto" or 
+            Player.PlayerData.job.name == "basspro" or 
+            Player.PlayerData.job.name == "sanders" or 
+            Player.PlayerData.job.name == "hektic" or 
+            Player.PlayerData.job.name == "redline" or 
+            Player.PlayerData.job.name == "bennys" or 
+            Player.PlayerData.job.name == "sic") 
+            and Player.PlayerData.job.onduty then
+                Autos[#Autos+1] = {
+                    name = Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname,
+                    phone = Player.PlayerData.charinfo.phone,
+                    typejob = Player.PlayerData.job.name
+                }
+            end
+        end
+    end
+    cb(Autos)
 end)
 
 QBCore.Functions.CreateCallback("qb-phone:server:GetWebhook",function(_,cb)
@@ -1056,8 +1114,31 @@ QBCore.Commands.Add('bill', 'Bill A Player', {{name = 'id', help = 'Player ID'},
     local biller = QBCore.Functions.GetPlayer(source)
     local billed = QBCore.Functions.GetPlayer(tonumber(args[1]))
     local amount = tonumber(args[2])
-    if biller.PlayerData.job.name == "police" or biller.PlayerData.job.name == 'ambulance' or biller.PlayerData.job.name == 'mechanic' then
-        if billed ~= nil then
+    if biller.PlayerData.job.name == 'ambulance' or 
+        biller.PlayerData.job.name == 'mechanic' or 
+        biller.PlayerData.job.name == 'redline' or 
+        biller.PlayerData.job.name == 'burgershot' or 
+        biller.PlayerData.job.name == 'yellowjack' or 
+        biller.PlayerData.job.name == 'turbotaxi' or
+        biller.PlayerData.job.name == 'tow' or 
+        biller.PlayerData.job.name == 'realestate' or 
+        biller.PlayerData.job.name == 'lawyer' or 
+        biller.PlayerData.job.name == 'daoffice' or 
+        biller.PlayerData.job.name == 'judge' or 
+        biller.PlayerData.job.name == 'beanmachine' or 
+        biller.PlayerData.job.name == 'bestbuds' or 
+        biller.PlayerData.job.name == 'tequilala' or 
+        biller.PlayerData.job.name == 'vu' or 
+        biller.PlayerData.job.name == "bennys" or 
+        biller.PlayerData.job.name == 'cyberbar' or 
+        biller.PlayerData.job.name == 'hektic' or 
+        biller.PlayerData.job.name == 'basspro' or 
+        biller.PlayerData.job.name == 'merqsquad' or
+        biller.PlayerData.job.name == 'sanders' or 
+        biller.PlayerData.job.name == 'cookies' or
+        biller.PlayerData.job.name == 'sic' or
+        biller.PlayerData.job.name == 'noodleexchange' then
+            if billed ~= nil then
             if biller.PlayerData.citizenid ~= billed.PlayerData.citizenid then
                 if amount and amount > 0 then
                     MySQL.Async.insert(

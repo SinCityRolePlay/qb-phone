@@ -1122,6 +1122,18 @@ RegisterNUICallback('GetCurrentLawyers', function(_, cb)
     end)
 end)
 
+RegisterNUICallback('GetCurrentFoods', function(data, cb)
+    QBCore.Functions.TriggerCallback('qb-phone:server:GetCurrentFoods', function(foods)
+        cb(foods)
+    end)
+end)
+
+RegisterNUICallback('GetCurrentAutos', function(data, cb)
+    QBCore.Functions.TriggerCallback('qb-phone:server:GetCurrentAutos', function(autos)
+        cb(autos)
+    end)
+end)
+
 RegisterNUICallback('SetupStoreApps', function(_, cb)
     local PlayerData = QBCore.Functions.GetPlayerData()
     local data = {
