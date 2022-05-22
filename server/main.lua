@@ -386,7 +386,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:FetchResult', function(_, cb, s
                 nationality = charinfo.nationality,
                 gender = charinfo.gender,
                 warrant = false,
-                driverlicense = metadata["licences"]["driver"],
+                driverlicense = metadata["licenses"]["driver"],
                 appartmentdata = appiepappie
             }
         end
